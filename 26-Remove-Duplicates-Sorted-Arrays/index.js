@@ -3,28 +3,26 @@
  * @return {number}
  */
 var removeDuplicates = function(nums) {
-    let k = 1;
-    let i = 1;
-    let selectedNum = nums[0];
+    let k = 0;
 
-    while (i < nums.length) {
-        const currentNum = nums[i];
+    for (let i = 0; i < nums.length; i++) {
+        const num = nums[i];
 
-        if (selectedNum === currentNum) {
-            nums.splice(i, 1);
-        } else {
-            selectedNum = currentNum;
-            k++
-            i++;
+        let next = i + 1;
+
+        while (num === nums[next]) {
+            next++;
         }
+
+        nums.splice(i + 1, next - i - 1);
+        k++;
     }
 
-    console.log(nums);
     return k;
 };
 
-let nums = [1, 1, 2];
-let expectedNums = [1, 2];
+let nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4];
+let expectedNums = [0, 1, 2, 3, 4];
 
 const k = removeDuplicates(nums);
 
