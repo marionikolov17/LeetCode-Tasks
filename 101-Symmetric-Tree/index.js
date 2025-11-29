@@ -11,26 +11,18 @@
  * @return {boolean}
  */
 var isSymmetric = function(root) {
-    if (!root.left && !root.right) return true;
-    if (!root.left || !root.right) return false;
+    const tree = [];
 
-    const leftRoot = root.left;
-    const rightRoot = root.right;
+    bfs(root, 0, tree);
 
-    const leftTree = [];
-    const rightTree = [];
+    for (let i = 0; i < tree.length; i++) {
+        const level = tree[i];
 
-    bfs(leftRoot, 0, leftTree);
-    bfs(rightRoot, 0, rightTree);
-
-    if (leftTree.length !== rightTree.length) return false;
-
-    for (let i = 0; i < leftTree.length; i++) {
         let left = 0;
-        let right = leftTree[i].length - 1;
+        let right = level.length - 1;
 
-        while (left < leftTree.length && right >= 0) {
-            if (leftTree[i][left] !== rightTree[i][right]) return false;
+        while (left <= right) {
+            if (level[left] !== level[right]) return false;
             left++;
             right--;
         }
